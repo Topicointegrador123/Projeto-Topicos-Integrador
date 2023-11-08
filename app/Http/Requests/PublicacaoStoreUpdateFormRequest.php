@@ -34,6 +34,13 @@ class PublicacaoStoreUpdateFormRequest extends FormRequest
                 'string',
                 'min:10'
             ],
+            
+            'image' => [
+                'nullable',
+                'image', //a validação "image" é nativa do próprio laravel, altamente recomendável pois ja existe uma validação pronta até quanto a tipagem de arquivo
+                'max: 2048'
+            ]
+            
 
         ];
         return $rules;

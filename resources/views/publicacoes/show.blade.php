@@ -1,28 +1,42 @@
 @extends('layouts.app')
 @section('title', "Listagem do usuário $publicacao->titulo" )
 @section('content')
-    <h1>{{ $publicacao->titulo }} </h1>
-    <ul>
-        <li>{{ $publicacao->postagem }}</li>
-        <li>{{ $publicacao->data }}</li>
-        <br>
-        Comentários {{$publicacao->titulo}}
-{{--$comentarios['comentarios'] as $comentario: neste código, estamos acessando a chave 'comentarios' no array $comentarios para obter a coleção de comentários--}}
-            @if(count($comentarios['comentarios']) > 0)
-                @foreach($comentarios['comentarios'] as $comentario)
-                    <li>
-                        {{$comentario->descricao}}
-                        {{$comentario->data_comentario}}                        
-                    </li>
-                @endforeach
-            @else
-                <p>Nenhum comentário.</p>
-            @endif
-
-    </ul>
-    <a href="{{ route('comentarios.create', $publicacao->id)  }}"> comentar publicação </a>
-
-    <br>
-
-    <a href="{{ route('publicacoes.index') }}">voltar</a>
+        <v-container>
+            <v-card>
+                <v-card-title>
+                    {{ $publicacao->titulo }}
+                </v-card-title>
+                <v-card-text>
+                    {{ $publicacao->postagem }}
+                    {{ $publicacao->data }}
+                    @if ($publicacao->image)
+                        <img src="{{ asset("storage/{$publicacao->image}") }}" alt="{{ $publicacao->titulo }}" class="v-responsive ma-4">
+                    @else
+                        <img src="{{ url("favicon.ico") }}" alt="{{ $publicacao->titulo }}">
+                    @endif
+                    <p>Comentários {{ $publicacao->titulo }}</p>
+                    @if (count($comentarios['comentarios']) > 0)
+                        <v-list>
+                            @foreach ($comentarios['comentarios'] as $comentario)
+                                <v-list-item>
+                                    <v-list-item-title>
+                                        {{ $comentario->descricao }}
+                                    </v-list-item-title>
+                                    <v-list-item-subtitle>
+                                        {{ $comentario->data_comentario }}
+                                    </v-list-item-subtitle>
+                                </v-list-item>
+                                @endforeach
+                            </v-list>
+                            <br>
+                    @else
+                        <p>Nenhum comentário.</p>
+                    @endif
+                    <a class="v-btn" href="{{ route('comentarios.create', $publicacao->id) }}">Comentar publicação</a>
+                    <br>
+                    <a class="v-btn" href="{{ route('publicacoes.index') }}">Voltar</a>
+                </v-card-text>
+            </v-card>
+        </v-container>
+    
 @endsection

@@ -1,23 +1,32 @@
 @extends('layouts.app')
 @section('title', 'Listagem dos usuários')
 @section('content')
-    <h1>
-        Publicações (<a href=" {{ route('publicacoes.create') }}"> + </a>)
-    </h1>
-    <form action="{{ route('usuarios.index') }}" method="get">
-        <input type="text" name="search" placeholder="Pesquisar">
-        <button>Pesquisar</button>
-    </form>
+    <v-container>
+        <h1>
+            Publicações
+            <v-btn href="{{ route('publicacoes.create') }}" color="deep-purple">+</v-btn>
+        </h1>
+        <v-form action="{{ route('usuarios.index') }}" method="get">
+            <v-text-field name="search" label="Pesquisar"></v-text-field>
+            <v-btn type="submit" color="deep-purple">Pesquisar</v-btn>
+        </v-form>
 
-    <ul>
-        {{--    variável $usuarios recebida do controller via compact--}}
-        @foreach($publicacoes as $publicacao)
-            <li>
-                {{$publicacao->titulo}} -
-                {{$publicacao->data}} -
-                | <a href="{{ route('publicacoes.show', $publicacao->id)  }}"> Visualizar </a>
-            </li>
-        @endforeach
-    </ul>
+        <v-list>
 
+            @foreach($publicacoes as $publicacao)
+                <v-list-item>
+                    <v-list-item-content>
+                        <v-list-item-title>
+                            <a href="{{ route('publicacoes.show', $publicacao->id) }}">{{ $publicacao->titulo }}</a>
+                        </v-list-item-title>
+                        <v-list-item-subtitle>{{ $publicacao->data }}</v-list-item-subtitle>
+                    </v-list-item-content>
+                    <v-list-item-action>
+                        <v-btn href="{{ route('publicacoes.show', $publicacao->id) }}" color="deep-purple">Visualizar</v-btn>
+                    </v-list-item-action>
+                </v-list-item>
+            @endforeach
+        </v-list>
+    </v-container>
+ 
 @endsection

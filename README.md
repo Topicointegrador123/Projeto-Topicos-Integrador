@@ -69,3 +69,15 @@ php artisan key:generate
 
 Acessar o projeto
 [http://localhost:8989](http://localhost:8989)
+
+
+extra: 
+dentro do container php, escrever 
+
+$ ls -la public/ 
+
+depois de verificar as conexões 
+
+$php artisan storage:link
+
+para criar um link simbolico entra a pasta public e a pasta storage

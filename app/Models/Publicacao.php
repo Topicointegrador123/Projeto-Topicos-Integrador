@@ -13,7 +13,8 @@ class Publicacao extends Model
       'postagem',
       'titulo',
       'tipo_publicacao',
-      'usuario_id'
+      'usuario_id',
+      'image',
     ];
 
     protected $attributes = [

@@ -35,8 +35,13 @@ class PublicacaoController extends Controller
     public function store (PublicacaoStoreUpdateFormRequest $request)
     {
         $data = $request->all();
+        if ($request->image) {
+            $data['image'] = $request->image->store('publicacoes');
+            //para salvar arquivos com o próprio nome
+            // $extension = $request->image->getClientOriginalExtension();
+            // $data['image'] = $request->image->storeAs('publicacoes', now() . ".{$extension}");
+        }
         Publicacao::create($data);
-
         return redirect()->route('publicacoes.index');
     }
 }
